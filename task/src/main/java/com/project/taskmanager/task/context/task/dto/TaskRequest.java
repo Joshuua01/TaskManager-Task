@@ -14,5 +14,5 @@ import java.util.UUID;
 public class TaskRequest {
     private String title;
     private String description;
-    private UUID AssigneeId;
+    private UUID assigneeId;
 }

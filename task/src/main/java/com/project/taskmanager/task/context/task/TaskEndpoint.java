@@ -29,5 +29,10 @@ public class TaskEndpoint {
         return ResponseEntity.ok(taskService.getAllTasks());
     }
 
+    @PatchMapping("/update/{id}")
+    public ResponseEntity<TaskResponse> updateTask(@PathVariable Long id, @RequestBody TaskRequest request) {
+        return ResponseEntity.ok(taskService.updateTask(id, request));
+    }
+
 }
 
