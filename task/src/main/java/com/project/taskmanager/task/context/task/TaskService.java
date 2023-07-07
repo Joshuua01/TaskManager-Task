@@ -91,4 +91,10 @@ public class TaskService {
                 .updatedAt(task.getUpdatedAt().toString())
                 .build();
     }
+
+    public void deleteTask(Long id) {
+        var task = taskRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Task not found"));
+        taskRepository.delete(task);
+    }
 }
