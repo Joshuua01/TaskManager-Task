@@ -2,8 +2,8 @@ package com.project.taskmanager.task.context.task;
 
 import com.project.taskmanager.task.context.task.dto.TaskRequest;
 import com.project.taskmanager.task.context.task.dto.TaskResponse;
-import com.project.taskmanager.task.domain.Task;
-import com.project.taskmanager.task.domain.TaskRepository;
+import com.project.taskmanager.task.domain.task.Task;
+import com.project.taskmanager.task.domain.task.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;

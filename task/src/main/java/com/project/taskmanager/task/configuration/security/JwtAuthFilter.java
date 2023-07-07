@@ -8,9 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.io.IOException;
 
@@ -22,12 +23,27 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
 
+
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
         final String authHeader = request.getHeader(AUTHORIZATION);
         final String jwt;
+
+        WebClient client = WebClient.builder()
+                .baseUrl("http://localhost:8080/api/auth/internal/isValidToken/" + authHeader.substring(7))
+                .build();
+
+        Boolean isTokenValid = client.get()
+                .retrieve()
+                .bodyToMono(Boolean.class)
+                .block();
+        if(isTokenValid == null || !isTokenValid) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
@@ -43,6 +59,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             System.out.println(e.getMessage());
             SecurityContextHolder.clearContext();
         }
+
 
         filterChain.doFilter(request, response);
     }

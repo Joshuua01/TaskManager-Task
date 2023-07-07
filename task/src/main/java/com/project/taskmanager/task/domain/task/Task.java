@@ -1,5 +1,6 @@
-package com.project.taskmanager.task.domain;
+package com.project.taskmanager.task.domain.task;
 
+import com.project.taskmanager.task.domain.comment.Comment;
 import com.project.taskmanager.task.domain.enums.TaskStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -34,4 +37,7 @@ public class Task {
     private LocalDateTime createdAt = LocalDateTime.now();
     @Builder.Default
     private LocalDateTime updatedAt = LocalDateTime.now();
+
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
 }
