@@ -1,4 +1,4 @@
 package com.project.taskmanager.task.context.task;
 
-public class TaskEnpoint {
+public class TaskEndpoint {
 }
