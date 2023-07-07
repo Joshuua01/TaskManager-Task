@@ -4,10 +4,9 @@ import com.project.taskmanager.task.context.task.dto.TaskRequest;
 import com.project.taskmanager.task.context.task.dto.TaskResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/task")
@@ -18,6 +17,16 @@ public class TaskEndpoint {
     @PostMapping("/create")
     public ResponseEntity<TaskResponse> createTask(@RequestBody TaskRequest request) {
         return ResponseEntity.ok(taskService.createTask(request));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<TaskResponse> getTaskById(@PathVariable Long id) {
+        return ResponseEntity.ok(taskService.getTaskById(id));
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<TaskResponse>> getAllTasks() {
+        return ResponseEntity.ok(taskService.getAllTasks());
     }
 
 }

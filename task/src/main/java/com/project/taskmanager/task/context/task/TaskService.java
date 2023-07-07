@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -33,5 +35,38 @@ public class TaskService {
                 .createdAt(task.getCreatedAt().toString())
                 .updatedAt(task.getUpdatedAt().toString())
                 .build();
+    }
+
+    public TaskResponse getTaskById(Long id) {
+        var task = taskRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Task not found"));
+        return TaskResponse.builder()
+                .id(task.getId())
+                .title(task.getTitle())
+                .description(task.getDescription())
+                .status(task.getStatus().name())
+                .creatorId(task.getCreatorId().toString())
+                .createdAt(task.getCreatedAt().toString())
+                .updatedAt(task.getUpdatedAt().toString())
+                .build();
+    }
+
+    public List<TaskResponse> getAllTasks() {
+        List<Task> tasks = taskRepository.findAll();
+
+        List<TaskResponse> taskResponses = new ArrayList<>();
+        for (Task task : tasks) {
+            TaskResponse taskResponse = TaskResponse.builder()
+                    .id(task.getId())
+                    .title(task.getTitle())
+                    .description(task.getDescription())
+                    .status(task.getStatus().name())
+                    .creatorId(task.getCreatorId().toString())
+                    .createdAt(task.getCreatedAt().toString())
+                    .updatedAt(task.getUpdatedAt().toString())
+                    .build();
+            taskResponses.add(taskResponse);
+        }
+        return taskResponses;
     }
 }
