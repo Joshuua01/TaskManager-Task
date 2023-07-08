@@ -37,7 +37,7 @@ public class TaskEndpoint {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
-        return ResponseEntity.ok("User deleted successfully");
+        return ResponseEntity.ok("Task deleted successfully");
     }
 }
 

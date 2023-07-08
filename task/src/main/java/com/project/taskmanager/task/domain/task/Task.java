@@ -1,5 +1,6 @@
 package com.project.taskmanager.task.domain.task;
 
+import com.project.taskmanager.task.domain.attachment.Attachment;
 import com.project.taskmanager.task.domain.comment.Comment;
 import com.project.taskmanager.task.domain.enums.TaskStatus;
 import jakarta.persistence.*;
@@ -40,4 +41,7 @@ public class Task {
 
     @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
+    private List<Attachment> attachments = new ArrayList<>();
 }
