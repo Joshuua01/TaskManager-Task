@@ -4,6 +4,7 @@ import com.project.taskmanager.task.domain.attachment.Attachment;
 import com.project.taskmanager.task.domain.comment.Comment;
 import com.project.taskmanager.task.domain.enums.TaskStatus;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,13 +25,12 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+    @NotNull(message = "Title cannot be empty")
     private String title;
-    @Column(nullable = false)
+    @NotNull(message = "Description cannot be empty")
     private String description;
     @Builder.Default
     private TaskStatus status = TaskStatus.OPEN;
-    @Column(nullable = false)
     private UUID creatorId;
     @Builder.Default
     private UUID assigneeId = null;

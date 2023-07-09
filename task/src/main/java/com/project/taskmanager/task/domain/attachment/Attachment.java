@@ -2,6 +2,7 @@ package com.project.taskmanager.task.domain.attachment;
 
 import com.project.taskmanager.task.domain.task.Task;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +24,7 @@ public class Attachment {
     private byte[] data;
 
     @ManyToOne
-    @JoinColumn(name = "task_id", nullable = false)
+    @JoinColumn(name = "task_id")
+    @NotNull(message = "Task cannot be empty")
     private Task task;
 }

@@ -53,8 +53,9 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.hibernate.orm</groupId>
-			<artifactId>hibernate-core</artifactId>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>8.0.1.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>

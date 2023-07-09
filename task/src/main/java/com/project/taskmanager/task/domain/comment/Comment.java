@@ -2,6 +2,7 @@ package com.project.taskmanager.task.domain.comment;
 
 import com.project.taskmanager.task.domain.task.Task;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +21,7 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+    @NotNull(message = "Content cannot be empty")
     private String content;
     private UUID creatorId;
     @Builder.Default
@@ -30,5 +31,6 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name = "task_id", nullable = false)
+    @NotNull(message = "Task cannot be empty")
     private Task task;
 }
