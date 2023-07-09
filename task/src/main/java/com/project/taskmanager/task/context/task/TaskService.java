@@ -24,6 +24,7 @@ public class TaskService {
                 .description(request.getDescription())
                 .creatorId(UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getName()))
                 .assigneeId(request.getAssigneeId())
+                .updatedById(UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getName()))
                 .build();
         taskRepository.save(task);
 
@@ -35,6 +36,7 @@ public class TaskService {
                 .creatorId(task.getCreatorId().toString())
                 .createdAt(task.getCreatedAt().toString())
                 .updatedAt(task.getUpdatedAt().toString())
+                .updatedById(task.getUpdatedById().toString())
                 .build();
     }
 
@@ -47,8 +49,10 @@ public class TaskService {
                 .description(task.getDescription())
                 .status(task.getStatus().name())
                 .creatorId(task.getCreatorId().toString())
+                .assigneeId(task.getAssigneeId() == null ? null : task.getAssigneeId().toString())
                 .createdAt(task.getCreatedAt().toString())
                 .updatedAt(task.getUpdatedAt().toString())
+                .updatedById(task.getUpdatedById().toString())
                 .build();
     }
 
@@ -63,8 +67,10 @@ public class TaskService {
                     .description(task.getDescription())
                     .status(task.getStatus().name())
                     .creatorId(task.getCreatorId().toString())
+                    .assigneeId(task.getAssigneeId() == null ? null : task.getAssigneeId().toString())
                     .createdAt(task.getCreatedAt().toString())
                     .updatedAt(task.getUpdatedAt().toString())
+                    .updatedById(task.getUpdatedById().toString())
                     .build();
             taskResponses.add(taskResponse);
         }
@@ -78,6 +84,7 @@ public class TaskService {
         task.setDescription(request.getDescription() != null ? request.getDescription() : task.getDescription());
         task.setAssigneeId(request.getAssigneeId() != null ? request.getAssigneeId() : task.getAssigneeId());
         task.setUpdatedAt(LocalDateTime.now());
+        task.setUpdatedById(UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getName()));
         taskRepository.save(task);
 
         return TaskResponse.builder()
@@ -86,9 +93,10 @@ public class TaskService {
                 .description(task.getDescription())
                 .status(task.getStatus().name())
                 .creatorId(task.getCreatorId().toString())
-                .assigneeId(task.getAssigneeId().toString() != null ? task.getAssigneeId().toString() : null)
+                .assigneeId(task.getAssigneeId() != null ? task.getAssigneeId().toString() : null)
                 .createdAt(task.getCreatedAt().toString())
                 .updatedAt(task.getUpdatedAt().toString())
+                .updatedById(task.getUpdatedById().toString())
                 .build();
     }
 

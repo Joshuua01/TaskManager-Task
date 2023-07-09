@@ -18,4 +18,5 @@ public class TaskResponse {
     private String assigneeId;
     private String createdAt;
     private String updatedAt;
+    private String updatedById;
 }
