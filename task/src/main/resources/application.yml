@@ -7,7 +7,7 @@ spring:
       ddl-auto: create-drop
     show-sql: true
   datasource:
-    url: jdbc:h2:file:C:/Users/Janeczek/Desktop/API TASK PROJECT 2/task/taskDb
+    url: jdbc:h2:file:./task/taskDb
     driver-class-name: org.h2.Driver
     username: root
     password: root
@@ -18,6 +18,9 @@ spring:
 server:
   port: 8082
 
+secrets:
+  jwt: "GSuovz7BIEJLvLCKwfhghwx8tHfK3ee4L2K9/VPHQhI="
+  internal: "w6YT3S43OL80iP67Fu2WjC3fXD1NPQYe"
 
 
 

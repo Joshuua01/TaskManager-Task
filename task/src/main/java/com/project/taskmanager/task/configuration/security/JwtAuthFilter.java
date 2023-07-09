@@ -5,6 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,7 +23,8 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
-
+    @Value("${secrets.internal}")
+    private String SecretInternal;
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
@@ -32,10 +34,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         final String jwt;
 
         WebClient client = WebClient.builder()
-                .baseUrl("http://localhost:8080/api/auth/internal/isValidToken/" + authHeader.substring(7))
+                .baseUrl("http://localhost:8081/api/auth/internal/isValidToken/" + authHeader.substring(7))
                 .build();
 
         Boolean isTokenValid = client.get()
+                .header("AuthInt", SecretInternal)
                 .retrieve()
                 .bodyToMono(Boolean.class)
                 .block();
