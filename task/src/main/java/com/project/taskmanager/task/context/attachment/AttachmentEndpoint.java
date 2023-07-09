@@ -1,13 +1,10 @@
 package com.project.taskmanager.task.context.attachment;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/attachment")
@@ -26,5 +23,11 @@ public class AttachmentEndpoint {
         return ResponseEntity.ok()
                 .contentType(MediaType.valueOf(attachmentService.downloadAttachment(attachmentId).getType()))
                 .body(attachmentService.downloadAttachment(attachmentId).getData());
+    }
+
+    @DeleteMapping("/delete/{attachmentId}")
+    public ResponseEntity<String> deleteAttachment(@PathVariable Long attachmentId) {
+        attachmentService.deleteAttachment(attachmentId);
+        return ResponseEntity.ok("Attachment deleted successfully");
     }
 }

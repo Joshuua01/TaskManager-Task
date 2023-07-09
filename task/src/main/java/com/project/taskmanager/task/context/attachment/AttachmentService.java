@@ -39,4 +39,8 @@ public class AttachmentService {
                 .orElseThrow(() -> new RuntimeException("Attachment not found"));
         return attachment;
     }
+
+    public void deleteAttachment(Long attachmentId) {
+        attachmentRepository.deleteById(attachmentId);
+    }
 }
