@@ -23,8 +23,11 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
-    @Value("${secrets.internal}")
+    @Value("${variables.internal-secret}")
     private String SecretInternal;
+    @Value("${variables.auth-uri}")
+    private String AuthUri;
+
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
@@ -34,7 +37,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         final String jwt;
 
         WebClient client = WebClient.builder()
-                .baseUrl("http://localhost:8081/api/auth/internal/isValidToken/" + authHeader.substring(7))
+                .baseUrl(AuthUri + "auth/internal/isValidToken/" + authHeader.substring(7))
                 .build();
 
         Boolean isTokenValid = client.get()

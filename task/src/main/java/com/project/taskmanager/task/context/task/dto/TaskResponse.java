@@ -15,8 +15,11 @@ public class TaskResponse {
     private String description;
     private String status;
     private String creatorId;
+    private String creatorName;
     private String assigneeId;
+    private String assigneeName;
     private String createdAt;
     private String updatedAt;
     private String updatedById;
+    private String updatedByName;
 }

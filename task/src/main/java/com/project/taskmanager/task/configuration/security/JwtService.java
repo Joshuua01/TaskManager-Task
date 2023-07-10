@@ -19,7 +19,7 @@ import java.util.UUID;
 
 @Service
 public class JwtService {
-    @Value("${secrets.jwt}")
+    @Value("${variables.jwt-secret}")
     private String jwtSecret;
 
     private Key getSingnInKey() {

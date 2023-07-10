@@ -18,9 +18,11 @@ spring:
 server:
   port: 8082
 
-secrets:
-  jwt: "GSuovz7BIEJLvLCKwfhghwx8tHfK3ee4L2K9/VPHQhI="
-  internal: "w6YT3S43OL80iP67Fu2WjC3fXD1NPQYe"
+variables:
+  jwt-secret: "GSuovz7BIEJLvLCKwfhghwx8tHfK3ee4L2K9/VPHQhI="
+  internal-secret: "w6YT3S43OL80iP67Fu2WjC3fXD1NPQYe"
+  auth-uri: "http://localhost:8081/api/"
+
 
 
 
