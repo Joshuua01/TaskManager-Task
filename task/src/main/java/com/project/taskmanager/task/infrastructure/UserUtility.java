@@ -1,16 +1,31 @@
 package com.project.taskmanager.task.infrastructure;
 
 import com.project.taskmanager.task.context.comment.CommentService;
+import com.project.taskmanager.task.context.comment.dto.CommentResponse;
 import com.project.taskmanager.task.context.task.TaskService;
+import com.project.taskmanager.task.domain.comment.CommentRepository;
+import com.project.taskmanager.task.domain.task.TaskRepository;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
-@AllArgsConstructor
+import java.util.UUID;
+
+@RequiredArgsConstructor
 @Component
 public class UserUtility {
-    private final TaskService taskService;
-    private final CommentService commentService;
+    private final TaskRepository taskRepository;
+    private final CommentRepository commentRepository;
+
+    @Value("${variables.auth-uri}")
+    private String AuthUri;
+    @Value("${variables.internal-secret}")
+    private String SecretInternal;
 
 
     public boolean isAdmin() {
@@ -18,10 +33,36 @@ public class UserUtility {
     }
 
     public boolean isCommentCreator(Long commentId) {
-        return commentService.getCommentById(commentId).getCreatorId().equals(SecurityContextHolder.getContext().getAuthentication().getName());
+        var comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new RuntimeException("Comment not found"));
+        return comment.getCreatorId().toString().equals(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 
     public boolean isTaskCreator(Long taskId) {
-        return taskService.getTaskById(taskId).getCreatorId().equals(SecurityContextHolder.getContext().getAuthentication().getName());
+        var task = taskRepository.findById(taskId)
+                .orElseThrow(() -> new RuntimeException("Task not found"));
+        return task.getCreatorId().toString().equals(SecurityContextHolder.getContext().getAuthentication().getName());
+    }
+
+
+    public WebClient getUserWebClient(UUID id) {
+        return WebClient.builder()
+                .baseUrl(AuthUri + "user/internal/" + id.toString())
+                .defaultHeader("AuthInt", SecretInternal)
+                .build();
+    }
+
+    public boolean userExists(UUID id) {
+        WebClient client = getUserWebClient(id);
+
+        return Boolean.TRUE.equals(client.get().exchangeToMono(response -> {
+                    HttpStatusCode status = response.statusCode();
+                    if (status.is2xxSuccessful()) {
+                        return Mono.just(true);
+                    } else {
+                        return Mono.just(false);
+                    }
+                })
+                .block());
     }
 }

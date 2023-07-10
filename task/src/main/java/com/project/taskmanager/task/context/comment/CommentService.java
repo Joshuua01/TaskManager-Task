@@ -5,6 +5,7 @@ import com.project.taskmanager.task.context.comment.dto.CommentResponse;
 import com.project.taskmanager.task.domain.comment.Comment;
 import com.project.taskmanager.task.domain.comment.CommentRepository;
 import com.project.taskmanager.task.domain.task.TaskRepository;
+import com.project.taskmanager.task.infrastructure.UserUtility;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ import java.util.UUID;
 public class CommentService {
     private final CommentRepository commentRepository;
     private final TaskRepository taskRepository;
+    private final UserUtility userUtility;
+
+
     public CommentResponse createComment(Long taskId, CommentRequest request) {
         var comment = Comment.builder()
                 .content(request.getContent())
@@ -30,6 +34,7 @@ public class CommentService {
                 .id(comment.getId())
                 .content(comment.getContent())
                 .creatorId(comment.getCreatorId().toString())
+                .creatorName(userUtility.getUserWebClient(comment.getCreatorId()).get().retrieve().bodyToMono(String.class).block())
                 .createdAt(comment.getCreatedAt().toString())
                 .updatedAt(comment.getUpdatedAt().toString())
                 .taskId(comment.getTask().getId())
@@ -44,6 +49,7 @@ public class CommentService {
                 .content(comment.getContent())
                 .creatorId(comment.getCreatorId().toString())
                 .createdAt(comment.getCreatedAt().toString())
+                .creatorName(userUtility.getUserWebClient(comment.getCreatorId()).get().retrieve().bodyToMono(String.class).block())
                 .updatedAt(comment.getUpdatedAt().toString())
                 .taskId(comment.getTask().getId())
                 .build();
@@ -58,6 +64,7 @@ public class CommentService {
                     .id(comment.getId())
                     .content(comment.getContent())
                     .creatorId(comment.getCreatorId().toString())
+                    .creatorName(userUtility.getUserWebClient(comment.getCreatorId()).get().retrieve().bodyToMono(String.class).block())
                     .createdAt(comment.getCreatedAt().toString())
                     .updatedAt(comment.getUpdatedAt().toString())
                     .taskId(comment.getTask().getId())
@@ -77,6 +84,7 @@ public class CommentService {
                     .id(comment.getId())
                     .content(comment.getContent())
                     .creatorId(comment.getCreatorId().toString())
+                    .creatorName(userUtility.getUserWebClient(comment.getCreatorId()).get().retrieve().bodyToMono(String.class).block())
                     .createdAt(comment.getCreatedAt().toString())
                     .updatedAt(comment.getUpdatedAt().toString())
                     .taskId(comment.getTask().getId())
@@ -97,6 +105,7 @@ public class CommentService {
                 .id(comment.getId())
                 .content(comment.getContent())
                 .creatorId(comment.getCreatorId().toString())
+                .creatorName(userUtility.getUserWebClient(comment.getCreatorId()).get().retrieve().bodyToMono(String.class).block())
                 .createdAt(comment.getCreatedAt().toString())
                 .updatedAt(comment.getUpdatedAt().toString())
                 .taskId(comment.getTask().getId())

@@ -13,6 +13,7 @@ public class CommentResponse {
     private Long id;
     private String content;
     private String creatorId;
+    private String creatorName;
     private String createdAt;
     private String updatedAt;
     private Long taskId;
