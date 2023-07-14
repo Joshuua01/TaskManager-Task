@@ -1,7 +1,7 @@
-package com.project.taskmanager.task.domain.task;
+package com.project.taskmanager.task.domain;
 
-import com.project.taskmanager.task.domain.attachment.Attachment;
-import com.project.taskmanager.task.domain.comment.Comment;
+import com.project.taskmanager.task.domain.Attachment;
+import com.project.taskmanager.task.domain.Comment;
 import com.project.taskmanager.task.domain.enums.TaskStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

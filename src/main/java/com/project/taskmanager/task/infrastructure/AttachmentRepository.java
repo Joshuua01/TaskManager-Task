@@ -1,5 +1,6 @@
-package com.project.taskmanager.task.domain.attachment;
+package com.project.taskmanager.task.infrastructure;
 
+import com.project.taskmanager.task.domain.Attachment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

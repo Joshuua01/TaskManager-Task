@@ -1,5 +1,6 @@
-package com.project.taskmanager.task.domain.comment;
+package com.project.taskmanager.task.infrastructure;
 
+import com.project.taskmanager.task.domain.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

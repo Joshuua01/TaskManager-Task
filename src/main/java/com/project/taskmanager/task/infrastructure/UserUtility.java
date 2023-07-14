@@ -1,11 +1,5 @@
 package com.project.taskmanager.task.infrastructure;
 
-import com.project.taskmanager.task.context.comment.CommentService;
-import com.project.taskmanager.task.context.comment.dto.CommentResponse;
-import com.project.taskmanager.task.context.task.TaskService;
-import com.project.taskmanager.task.domain.comment.CommentRepository;
-import com.project.taskmanager.task.domain.task.TaskRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatusCode;

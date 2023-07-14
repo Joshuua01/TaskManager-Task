@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/task")
 @RequiredArgsConstructor
 public class TaskEndpoint {
     private final UserUtility userUtility;

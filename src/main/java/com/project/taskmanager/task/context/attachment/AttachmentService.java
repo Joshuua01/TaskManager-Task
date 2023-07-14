@@ -1,10 +1,9 @@
 package com.project.taskmanager.task.context.attachment;
 
-import com.project.taskmanager.task.domain.attachment.Attachment;
-import com.project.taskmanager.task.domain.attachment.AttachmentRepository;
-import com.project.taskmanager.task.domain.task.TaskRepository;
+import com.project.taskmanager.task.domain.Attachment;
+import com.project.taskmanager.task.infrastructure.AttachmentRepository;
+import com.project.taskmanager.task.infrastructure.TaskRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

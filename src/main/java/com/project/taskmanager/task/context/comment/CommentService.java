@@ -2,9 +2,9 @@ package com.project.taskmanager.task.context.comment;
 
 import com.project.taskmanager.task.context.comment.dto.CommentRequest;
 import com.project.taskmanager.task.context.comment.dto.CommentResponse;
-import com.project.taskmanager.task.domain.comment.Comment;
-import com.project.taskmanager.task.domain.comment.CommentRepository;
-import com.project.taskmanager.task.domain.task.TaskRepository;
+import com.project.taskmanager.task.domain.Comment;
+import com.project.taskmanager.task.infrastructure.CommentRepository;
+import com.project.taskmanager.task.infrastructure.TaskRepository;
 import com.project.taskmanager.task.infrastructure.UserUtility;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;

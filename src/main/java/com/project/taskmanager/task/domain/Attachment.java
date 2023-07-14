@@ -1,6 +1,5 @@
-package com.project.taskmanager.task.domain.attachment;
+package com.project.taskmanager.task.domain;
 
-import com.project.taskmanager.task.domain.task.Task;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
