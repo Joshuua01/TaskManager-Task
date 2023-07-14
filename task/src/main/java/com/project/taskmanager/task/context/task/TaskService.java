@@ -2,6 +2,7 @@ package com.project.taskmanager.task.context.task;
 
 import com.project.taskmanager.task.context.task.dto.TaskRequest;
 import com.project.taskmanager.task.context.task.dto.TaskResponse;
+import com.project.taskmanager.task.context.task.dto.TaskUpdateRequest;
 import com.project.taskmanager.task.domain.task.Task;
 import com.project.taskmanager.task.domain.task.TaskRepository;
 import com.project.taskmanager.task.infrastructure.UserUtility;
@@ -87,7 +88,7 @@ public class TaskService {
         return taskResponses;
     }
 
-    public TaskResponse updateTask(Long id, TaskRequest request) {
+    public TaskResponse updateTask(Long id, TaskUpdateRequest request) {
         var task = taskRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Task not found"));
 
@@ -98,6 +99,7 @@ public class TaskService {
         task.setTitle(request.getTitle() != null ? request.getTitle() : task.getTitle());
         task.setDescription(request.getDescription() != null ? request.getDescription() : task.getDescription());
         task.setAssigneeId(request.getAssigneeId() != null ? request.getAssigneeId() : task.getAssigneeId());
+        task.setStatus(request.getStatus() != null ? request.getStatus() : task.getStatus());
         task.setUpdatedAt(LocalDateTime.now());
         task.setUpdatedById(UUID.fromString(SecurityContextHolder.getContext().getAuthentication().getName()));
         taskRepository.save(task);

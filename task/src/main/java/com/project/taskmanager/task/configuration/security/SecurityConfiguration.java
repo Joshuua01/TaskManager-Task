@@ -13,6 +13,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfiguration {
     private final JwtAuthFilter jwtAuthFilter;
+    private final String[] allowedUrls = new String[]{
+            "api-docs/**",
+            "swagger-ui/**"
+    };
 
 
     @Bean
@@ -21,6 +25,7 @@ public class SecurityConfiguration {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
+                .requestMatchers(allowedUrls).permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

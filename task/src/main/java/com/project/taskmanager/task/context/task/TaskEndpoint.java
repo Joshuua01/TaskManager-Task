@@ -2,6 +2,7 @@ package com.project.taskmanager.task.context.task;
 
 import com.project.taskmanager.task.context.task.dto.TaskRequest;
 import com.project.taskmanager.task.context.task.dto.TaskResponse;
+import com.project.taskmanager.task.context.task.dto.TaskUpdateRequest;
 import com.project.taskmanager.task.infrastructure.UserUtility;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +34,7 @@ public class TaskEndpoint {
     }
 
     @PatchMapping("/update/{id}")
-    public ResponseEntity<TaskResponse> updateTask(@PathVariable Long id, @RequestBody TaskRequest request) {
+    public ResponseEntity<TaskResponse> updateTask(@PathVariable Long id, @RequestBody TaskUpdateRequest request) {
         if (!userUtility.isAdmin() && !userUtility.isTaskCreator(id)) {
             return ResponseEntity.badRequest().build();
         }

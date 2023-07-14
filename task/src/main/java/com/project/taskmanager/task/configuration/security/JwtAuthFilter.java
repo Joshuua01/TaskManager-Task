@@ -36,6 +36,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         final String authHeader = request.getHeader(AUTHORIZATION);
         final String jwt;
 
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         WebClient client = WebClient.builder()
                 .baseUrl(AuthUri + "auth/internal/isValidToken/" + authHeader.substring(7))
                 .build();
@@ -50,11 +55,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             return;
         }
 
-
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            filterChain.doFilter(request, response);
-            return;
-        }
         try {
             jwt = authHeader.substring(7);
             if (jwtService.validateSignature(jwt)) {

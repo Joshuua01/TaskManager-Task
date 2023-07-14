@@ -1,5 +1,6 @@
 package com.project.taskmanager.task.context.task.dto;
 
+import com.project.taskmanager.task.domain.enums.TaskStatus;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,10 +13,9 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
-public class TaskRequest {
-    @NotBlank(message = "Title can not be empty")
+public class TaskUpdateRequest {
     private String title;
-    @NotBlank(message = "Description can not be empty")
     private String description;
     private UUID assigneeId;
+    private TaskStatus status;
 }
