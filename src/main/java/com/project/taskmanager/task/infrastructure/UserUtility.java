@@ -41,7 +41,7 @@ public class UserUtility {
 
     public WebClient getUserWebClient(UUID id) {
         return WebClient.builder()
-                .baseUrl(AuthUri + "user/internal/" + id.toString())
+                .baseUrl(AuthUri + "internal/" + id.toString())
                 .defaultHeader("AuthInt", SecretInternal)
                 .build();
     }
